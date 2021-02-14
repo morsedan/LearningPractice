@@ -9,14 +9,14 @@ import UIKit
 
 struct Pokemon: Decodable {
     let abilities: [AbilityType]
-    let base_experience: Int
+    let baseExperience: Int
     let forms: [Form]
-    let game_indices: [GameIndex]
+    let gameIndices: [GameIndex]
     let height: Int
-    let held_items: [HeldItem]
+    let heldItems: [HeldItem]
     let id: Int
-    let is_default: Bool
-    let location_area_encounters: String
+    let isDefault: Bool
+    let locationAreaEncounters: String
     let moves: [Move]
     let name: String
     let order: Int
@@ -29,14 +29,14 @@ struct Pokemon: Decodable {
 }
 
 struct Sprites: Decodable {
-    let back_default: String?
-    let back_female: String?
-    let back_shiny: String?
-    let back_shiny_default: String?
-    let front_default: String?
-    let front_female: String?
-    let front_shiny: String?
-    let front_shiny_female: String?
+    let backDefault: String?
+    let backFemale: String?
+    let backShiny: String?
+    let backShinyDefault: String?
+    let frontDefault: String?
+    let frontFemale: String?
+    let frontShiny: String?
+    let frontShinyFemale: String?
     /*
      Still need to finish Sprite Type!
      */
@@ -49,7 +49,7 @@ struct Species: Decodable {
 
 struct Move: Decodable {
     let move: MoveType
-    let version_group_details: [VersionGroupDetial]
+    let versionGroupDetails: [VersionGroupDetial]
 }
 
 struct MoveType: Decodable {
@@ -58,9 +58,9 @@ struct MoveType: Decodable {
 }
 
 struct VersionGroupDetial: Decodable {
-    let level_learned_at: Int
-    let move_learn_method: Method
-    let version_group: VersionGroup
+    let levelLearnedAt: Int
+    let moveLearnMethod: Method
+    let versionGroup: VersionGroup
 }
 
 struct VersionGroup: Decodable {
@@ -75,7 +75,7 @@ struct Method: Decodable {
 
 struct HeldItem: Decodable {
     let item: Item
-    let version_details: [VersionDetail]
+    let versionDetails: [VersionDetail]
 }
 
 struct VersionDetail: Decodable {
@@ -89,7 +89,7 @@ struct Item: Decodable {
 }
 
 struct GameIndex: Decodable {
-    let game_index: Int
+    let gameIndex: Int
     let version: Version
 }
 
@@ -105,7 +105,7 @@ struct Form: Decodable {
 
 struct AbilityType: Decodable {
     let ability: Ability
-    let is_hidden: Bool
+    let isHidden: Bool
     let slot: Int
 }
 
@@ -140,6 +140,7 @@ class ViewController: UIViewController {
             }
             if let data = data {
                 let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
                 do {
                     let pokemon  = try decoder.decode(Pokemon.self, from: data)
                     print(String(data: data, encoding: .utf8))
